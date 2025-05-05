@@ -1,0 +1,9 @@
+/ {
+    aliases {
+        my-led = &blue_led_9;
+    };
+    chosen {
+        zephyr,console = &usart2;
+        zephyr,shell-uart = &usart2;
+    };
+};
