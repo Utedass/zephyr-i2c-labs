@@ -3,3 +3,8 @@
         my-led = &led0;
     };
 };
+
+&led0 {
+    gpios = <&porta 15 GPIO_ACTIVE_LOW>;
+    label = "Yellow LED";
+};
