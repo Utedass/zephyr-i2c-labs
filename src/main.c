@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/kernel.h>
+#include <zephyr/random/random.h>
 
 // Settings
 static const int32_t sleep_time_ms = 1000;
@@ -10,6 +11,7 @@ int main(void)
 {
 	int ret;
 	int state = 0;
+	uint32_t rnd;
 
 	// Make sure that the GPIO was initialized
 	if (!gpio_is_ready_dt(&led)) {
@@ -27,7 +29,9 @@ int main(void)
 
 		// Change the state of the pin and print
 		state = !state;
+		rnd = sys_rand32_get();
 		printk("LED state: %d\r\n", state);
+		printk("Random value: %u\r\n", rnd);
 
 		// Set pin state
 		ret = gpio_pin_set_dt(&led, state);

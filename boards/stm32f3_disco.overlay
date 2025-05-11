@@ -1,0 +1,14 @@
+/ {
+    aliases {
+        my-led = &red_led_3;
+    };
+    chosen {
+        zephyr,console = &usart1;
+        zephyr,shell-uart = &usart1;
+    };
+};
+
+&usart1 {
+    current-speed = <1000000>;
+    fifo-enable;
+};
