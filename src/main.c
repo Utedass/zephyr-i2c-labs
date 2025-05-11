@@ -2,6 +2,7 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/kernel.h>
 #include <zephyr/random/random.h>
+#include "say_hello.h"
 
 // Settings
 static const int32_t sleep_time_ms = 1000;
@@ -32,6 +33,8 @@ int main(void)
 		rnd = sys_rand32_get();
 		printk("LED state: %d\r\n", state);
 		printk("Random value: %u\r\n", rnd);
+
+		say_hello();
 
 		// Set pin state
 		ret = gpio_pin_set_dt(&led, state);
