@@ -1,0 +1,10 @@
+# It is possible to have comments here
+
+description: Description is apparently mandatory
+
+compatible: "my,useless-binding"
+
+properties:
+  num-dudes:
+    type: int
+    required: true

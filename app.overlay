@@ -1,0 +1,6 @@
+/ {
+    dude {
+        compatible = "my,useless-binding";
+        num-dudes = <1>;
+    };
+};
