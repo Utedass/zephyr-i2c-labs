@@ -19,9 +19,14 @@
 
 
 &i2c1 {
-    si5351: si5351@60 {
+    si5351_1: si5351@60 {
         compatible = "skyworks,si5351";
         reg = <0x60>;
+        #clock-cells = <4>;
+    };
+    si5351_2: si5351@61 {
+        compatible = "skyworks,si5351";
+        reg = <0x61>;
         #clock-cells = <4>;
     };
 };

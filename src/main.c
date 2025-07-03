@@ -95,7 +95,7 @@ int main(void)
 		return 0;
 	}
 
-	printk("Up and running I think!");
+	printk("Up and running I think!\n");
 
 	// Do forever
 	while (1)
