@@ -1,6 +1,8 @@
 / {
     dude {
         compatible = "my,useless-binding";
+        status = "okay";
         num-dudes = <1>;
+        //not-allowed = <3>;
     };
 };

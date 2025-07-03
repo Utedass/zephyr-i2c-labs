@@ -6,9 +6,50 @@
         zephyr,console = &usart1;
         zephyr,shell-uart = &usart1;
     };
+    zephyr,user {
+        /* adjust channel number according to pinmux in board.dts */
+        io-channels = <&adc1 1>;
+    };
 };
 
 &usart1 {
     current-speed = <1000000>;
     fifo-enable;
 };
+
+
+&i2c1 {
+    si5351: si5351@60 {
+        compatible = "skyworks,si5351";
+        reg = <0x60>;
+        #clock-cells = <4>;
+    };
+};
+
+/* ADC at PE7 */
+/* Not really working yet
+&adc3 {
+    pinctrl-0 = <&adc3_in13_pe7>;
+    pinctrl-names = "default";
+    st,adc-clock-source = "SYNC";
+    st,adc-prescaler = <2>;
+    status = "okay";
+};
+ */
+/*
+&adc1 {
+    pinctrl-0 = <&adc1_in1_pa0>;
+    pinctrl-names = "default";
+    st,adc-clock-source = "SYNC";
+    st,adc-prescaler = <2>;
+    status = "okay";
+
+    channel@0 {
+        reg = <0>;
+        zephyr,gain = "ADC_GAIN_1";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        zephyr,resolution = <12>;
+    };
+
+};*/
