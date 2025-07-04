@@ -9,6 +9,8 @@
 #include <zephyr/logging/log.h>
 #include "say_hello.h"
 
+#include <zephyr/drivers/clock_control/si5351.h>
+
 // Settings
 static const int32_t sleep_time_ms = 100;
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(DT_ALIAS(my_led), gpios);
@@ -140,6 +142,12 @@ int main(void)
 				// Button released
 				write(0x60, 0x10, 0x8c); // Turn off clock1
 				write(0x60, 0x11, 0x8c); // Turn off clock1
+			}
+
+			if (0)
+			{
+				uint8_t bajs;
+				read(0x60, 0x60, &bajs);
 			}
 
 			last_button_state = button_state;
