@@ -50,25 +50,23 @@
             p2 = <0>;
             p3 = <1>;
             r = <1>;
-            phase-offset = <120>;
+            phase-offset = <0>;
         };
 
         clkout1: clock@1 {
             compatible = "skyworks,si5351-output";
             reg = <1>;
             #clock-cells = <0>;
+            output-enabled;
             powered-up;
-            integer-mode;
-            multisynth-source = "PLLB";
-            invert;
-            clock-source = "xtal";
-            drive-strength = <2>;
-            p1 = <1337>;
-            p2 = <123>;
-            p3 = <31>;
-            r = <64>;
-            divide-by-four;
-            phase-offset = <120>;
+            multisynth-source = "PLLA";
+            clock-source = "multisynth";
+            drive-strength = <8>;
+            p1 = <14848>;
+            p2 = <0>;
+            p3 = <1>;
+            r = <1>;
+            phase-offset = <127>;
         };
 
         clkout2: clock@2 {
@@ -82,6 +80,7 @@
         reg = <0x61>;
         #address-cells = <1>;
         #size-cells = <0>;
+        status = "disabled";
 
         clkout3: clock@0 {
             compatible = "skyworks,si5351-output";

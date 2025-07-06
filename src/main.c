@@ -71,7 +71,9 @@ int main(void)
 	uint32_t rnd;
 	double dbl;
 
-	const struct device *clock_generator_1 = DEVICE_DT_GET(DT_NODELABEL(clkout0));
+	const struct device *clock_generator_1 = DEVICE_DT_GET(DT_NODELABEL(cg1));
+	const struct device *clock_output_1 = DEVICE_DT_GET(DT_NODELABEL(clkout0));
+	const struct device *clock_output_2 = DEVICE_DT_GET(DT_NODELABEL(clkout1));
 
 	// Make sure that the GPIO was initialized
 	if (!gpio_is_ready_dt(&led))
@@ -92,6 +94,18 @@ int main(void)
 		return 0;
 	}
 
+	if (!device_is_ready(clock_output_1))
+	{
+		printk("ERROR: Clock output 1 is not ready\r\n");
+		return 0;
+	}
+
+	if (!device_is_ready(clock_output_2))
+	{
+		printk("ERROR: Clock output 2 is not ready\r\n");
+		return 0;
+	}
+
 	// Set the button as input (apply extra flags if needed)
 	ret = gpio_pin_configure_dt(&btn, GPIO_INPUT);
 	if (ret < 0)
@@ -107,8 +121,6 @@ int main(void)
 	}
 
 	printk("Up and running I think!\n");
-
-	si5351_dummy(clock_generator_1);
 
 	// Do forever
 	while (1)
@@ -148,7 +160,7 @@ int main(void)
 				// write(0x60, 0x10, 0x0c); // Turn on clock1
 				// write(0x60, 0x11, 0x0c); // Turn on clock1
 
-				clock_control_on(clock_generator_1, NULL);
+				clock_control_on(clock_output_1, NULL);
 			}
 			else
 			{
@@ -156,7 +168,7 @@ int main(void)
 				// write(0x60, 0x10, 0x8c); // Turn off clock1
 				// write(0x60, 0x11, 0x8c); // Turn off clock1
 
-				clock_control_off(clock_generator_1, NULL);
+				clock_control_off(clock_output_1, NULL);
 			}
 
 			last_button_state = button_state;
