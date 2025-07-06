@@ -71,7 +71,7 @@ int main(void)
 	uint32_t rnd;
 	double dbl;
 
-	const struct device *clock_generator_1 = DEVICE_DT_GET(DT_NODELABEL(cg1));
+	const struct device *clock_generator_1 = DEVICE_DT_GET(DT_NODELABEL(clkout0));
 
 	// Make sure that the GPIO was initialized
 	if (!gpio_is_ready_dt(&led))

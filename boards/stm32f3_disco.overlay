@@ -17,17 +17,42 @@
     fifo-enable;
 };
 
-
 &i2c1 {
     cg1: si5351@60 {
         compatible = "skyworks,si5351";
         reg = <0x60>;
-        #clock-cells = <4>;
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        clkout0: clock@0 {
+            compatible = "skyworks,si5351-output";
+            reg = <0>;
+            #clock-cells = <0>;
+        };
+
+        clkout1: clock@1 {
+            compatible = "skyworks,si5351-output";
+            reg = <1>;
+            #clock-cells = <0>;
+        };
     };
     cg2: si5351@61 {
         compatible = "skyworks,si5351";
         reg = <0x61>;
-        #clock-cells = <4>;
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        clkout3: clock@0 {
+            compatible = "skyworks,si5351-output";
+            reg = <0>;
+            #clock-cells = <0>;
+        };
+
+        clkout4: clock@1 {
+            compatible = "skyworks,si5351-output";
+            reg = <1>;
+            #clock-cells = <0>;
+        };
     };
 };
 
