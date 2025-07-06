@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <zephyr/drivers/gpio.h>
+#include <zephyr/drivers/clock_control.h>
 #include <zephyr/kernel.h>
 #include <zephyr/random/random.h>
 #include <zephyr/device.h>
@@ -16,7 +17,7 @@ static const int32_t sleep_time_ms = 100;
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(DT_ALIAS(my_led), gpios);
 static const struct gpio_dt_spec btn = GPIO_DT_SPEC_GET(DT_ALIAS(sw0), gpios);
 
-static int read(uint8_t devaddr, uint8_t regaddr, uint8_t *regval)
+__attribute__((unused)) static int read(uint8_t devaddr, uint8_t regaddr, uint8_t *regval)
 {
 	int ret;
 
@@ -38,7 +39,7 @@ static int read(uint8_t devaddr, uint8_t regaddr, uint8_t *regval)
 	return 0;
 }
 
-static int write(uint8_t devaddr, uint8_t regaddr, uint8_t regval)
+__attribute__((unused)) static int write(uint8_t devaddr, uint8_t regaddr, uint8_t regval)
 {
 	int ret;
 
@@ -70,6 +71,8 @@ int main(void)
 	uint32_t rnd;
 	double dbl;
 
+	const struct device *clock_generator_1 = DEVICE_DT_GET(DT_NODELABEL(cg1));
+
 	// Make sure that the GPIO was initialized
 	if (!gpio_is_ready_dt(&led))
 	{
@@ -80,6 +83,12 @@ int main(void)
 	if (!gpio_is_ready_dt(&btn))
 	{
 		printk("ERROR: button not ready\r\n");
+		return 0;
+	}
+
+	if (!device_is_ready(clock_generator_1))
+	{
+		printk("ERROR: Clock generator is not ready\r\n");
 		return 0;
 	}
 
@@ -98,6 +107,8 @@ int main(void)
 	}
 
 	printk("Up and running I think!\n");
+
+	si5351_dummy(clock_generator_1);
 
 	// Do forever
 	while (1)
@@ -134,20 +145,18 @@ int main(void)
 			if (button_state == 0)
 			{
 				// Button pressed
-				write(0x60, 0x10, 0x0c); // Turn on clock1
-				write(0x60, 0x11, 0x0c); // Turn on clock1
+				// write(0x60, 0x10, 0x0c); // Turn on clock1
+				// write(0x60, 0x11, 0x0c); // Turn on clock1
+
+				clock_control_on(clock_generator_1, NULL);
 			}
 			else
 			{
 				// Button released
-				write(0x60, 0x10, 0x8c); // Turn off clock1
-				write(0x60, 0x11, 0x8c); // Turn off clock1
-			}
+				// write(0x60, 0x10, 0x8c); // Turn off clock1
+				// write(0x60, 0x11, 0x8c); // Turn off clock1
 
-			if (0)
-			{
-				uint8_t bajs;
-				read(0x60, 0x60, &bajs);
+				clock_control_off(clock_generator_1, NULL);
 			}
 
 			last_button_state = button_state;
