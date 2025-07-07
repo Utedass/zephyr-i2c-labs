@@ -27,10 +27,10 @@
         xtal-load = <10>;
         clkin-div = <1>;
 
-        plla-clock-source = "XTAL";
-        plla-p1 = <1669>;
-        plla-p2 = <3>;
-        plla-p3 = <25>;
+        plla-clock-source = "CLKin";
+        plla-p1 = <1638>;
+        plla-p2 = <2>;
+        plla-p3 = <5>;
 
         pllb-clock-source = "XTAL";
         pllb-p1 = <1337>;
@@ -66,13 +66,23 @@
             p2 = <0>;
             p3 = <1>;
             r = <1>;
-            phase-offset = <127>;
+            phase-offset = <120>;
         };
 
         clkout2: clock@2 {
             compatible = "skyworks,si5351-output";
             reg = <2>;
             #clock-cells = <0>;
+            output-enabled;
+            powered-up;
+            multisynth-source = "PLLA";
+            clock-source = "multisynth";
+            drive-strength = <8>;
+            p1 = <7168>;
+            p2 = <0>;
+            p3 = <1>;
+            r = <1>;
+            phase-offset = <0>;
         };
     };
     cg2: si5351@61 {
