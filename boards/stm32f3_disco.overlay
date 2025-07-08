@@ -29,8 +29,8 @@
 
         plla-clock-source = "CLKin";
         plla-p1 = <1638>;
-        plla-p2 = <2>;
-        plla-p3 = <5>;
+        plla-p2 = <400>;
+        plla-p3 = <1000>;
 
         pllb-clock-source = "XTAL";
         pllb-p1 = <1337>;
@@ -72,6 +72,7 @@
         clkout2: clock@2 {
             compatible = "skyworks,si5351-output";
             reg = <2>;
+            status = "disabled";
             #clock-cells = <0>;
             output-enabled;
             powered-up;

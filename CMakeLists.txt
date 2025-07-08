@@ -14,3 +14,4 @@ project(blink)
 
 # Locate the source code for the application
 target_sources(app PRIVATE src/main.c)
+target_sources(app PRIVATE src/commands/si5351_shell.c)

@@ -161,6 +161,7 @@ int main(void)
 				// write(0x60, 0x11, 0x0c); // Turn on clock1
 
 				clock_control_on(clock_output_1, NULL);
+				clock_control_on(clock_output_2, NULL);
 			}
 			else
 			{
@@ -169,6 +170,7 @@ int main(void)
 				// write(0x60, 0x11, 0x8c); // Turn off clock1
 
 				clock_control_off(clock_output_1, NULL);
+				clock_control_off(clock_output_2, NULL);
 			}
 
 			last_button_state = button_state;
